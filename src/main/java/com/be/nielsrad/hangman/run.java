@@ -4,32 +4,31 @@
  */
 package com.be.nielsrad.hangman;
 
+import javax.swing.UIManager;
+
 import com.be.nielsrad.hangman.controller.Galgje;
 import com.be.nielsrad.hangman.view.MainView;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- *
+ * 
  * @author NielsR
  */
 public class run {
-    public static void main(String[] args) {
-        //TODO: Java 7 heeft standaard Nimbus Look and Feel
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+	public static void main(final String[] args) {
+		// TODO: Java 7 heeft standaard Nimbus Look and Feel
+		try {
+			for (final UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
 
-                    UIManager.setLookAndFeel(info.getClassName());
+					UIManager.setLookAndFeel(info.getClassName());
 
-                    break;
-                }
-            }
-         //TODO: In Java 7 kan je meerdere fouten opvangen!
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+					break;
+				}
+			}
+			// TODO: In Java 7 kan je meerdere fouten opvangen!
+		} catch (final Exception ex) {
 
-        }
-        new MainView(new Galgje()).setVisible(true);
-    }
+		}
+		new MainView(new Galgje()).setVisible(true);
+	}
 }
-

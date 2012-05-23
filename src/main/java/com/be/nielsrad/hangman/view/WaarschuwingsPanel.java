@@ -1,14 +1,23 @@
 package com.be.nielsrad.hangman.view;
 
-import com.be.nielsrad.hangman.controller.Galgje;
-import com.sun.tools.javac.parser.JavacParser;
-
-import javax.swing.*;
-import javax.swing.plaf.LayerUI;
-import java.awt.*;
+import java.awt.AlphaComposite;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.plaf.LayerUI;
+
+import com.be.nielsrad.hangman.controller.Galgje;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,63 +28,61 @@ import java.awt.event.ActionListener;
  */
 public class WaarschuwingsPanel extends JPanel {
 
-    private JButton btnSluit;
-    private JLabel lblInfo;
-    private Galgje galgje;
-    private String info;
+	private JButton btnSluit;
+	private JLabel lblInfo;
+	private final Galgje galgje;
+	private final String info;
 
-    public WaarschuwingsPanel(Galgje galgje, String info) {
-        this.galgje = galgje;
-        this.info = info;
-        maakWaarschuwingsPanel();
-    }
+	public WaarschuwingsPanel(final Galgje galgje, final String info) {
+		this.galgje = galgje;
+		this.info = info;
+		maakWaarschuwingsPanel();
+	}
 
-    private void maakWaarschuwingsPanel() {
-        lblInfo = new JLabel(info);
-        lblInfo.setFont(new Font("Arial Black", Font.BOLD, 20));
+	private void maakWaarschuwingsPanel() {
+		lblInfo = new JLabel(info);
+		lblInfo.setFont(new Font("Arial Black", Font.BOLD, 20));
 
-        btnSluit = new JButton("Sluit Galgje");
-        btnSluit.setFont(new Font("Arial Black", Font.BOLD, 20));
-        setLayout(new BorderLayout());
-        JPanel pnlInfo = new JPanel(new GridBagLayout());
-        pnlInfo.add(lblInfo);
+		btnSluit = new JButton("Sluit Galgje");
+		btnSluit.setFont(new Font("Arial Black", Font.BOLD, 20));
+		setLayout(new BorderLayout());
+		final JPanel pnlInfo = new JPanel(new GridBagLayout());
+		pnlInfo.add(lblInfo);
 
-        pnlInfo.setOpaque(false);
+		pnlInfo.setOpaque(false);
 
-        add(pnlInfo, BorderLayout.CENTER);
-        add(btnSluit, BorderLayout.SOUTH);
+		add(pnlInfo, BorderLayout.CENTER);
+		add(btnSluit, BorderLayout.SOUTH);
 
-        btnSluit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                galgje.sluit();
-            }
-        });
-    }
+		btnSluit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				galgje.sluit();
+			}
+		});
+	}
 
 }
 
 class WallpaperLayerUI extends LayerUI<JPanel> {
 
-    public WallpaperLayerUI() {
+	public WallpaperLayerUI() {
 
-    }
+	}
 
-    @Override
-    public void paint(Graphics g, JComponent c) {
-        super.paint(g, c);
+	@Override
+	public void paint(final Graphics g, final JComponent c) {
+		super.paint(g, c);
 
+		final Graphics2D g2 = (Graphics2D) g.create();
 
-        Graphics2D g2 = (Graphics2D) g.create();
+		final int w = c.getWidth();
+		final int h = c.getHeight();
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .5f));
+		g2.setPaint(new GradientPaint(0, 0, Color.LIGHT_GRAY, 0, h, Color.LIGHT_GRAY));
+		g2.fillRect(0, 0, w, h);
 
-        int w = c.getWidth();
-        int h = c.getHeight();
-        g2.setComposite(AlphaComposite.getInstance(
-                AlphaComposite.SRC_OVER, .5f));
-        g2.setPaint(new GradientPaint(0, 0, Color.LIGHT_GRAY, 0, h, Color.LIGHT_GRAY));
-        g2.fillRect(0, 0, w, h);
+		g2.dispose();
 
-        g2.dispose();
-
-    }
+	}
 }

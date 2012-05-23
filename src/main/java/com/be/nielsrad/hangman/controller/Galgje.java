@@ -1,10 +1,10 @@
 package com.be.nielsrad.hangman.controller;
 
-
-import com.be.nielsrad.hangman.model.Spel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import com.be.nielsrad.hangman.model.Spel;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,57 +15,57 @@ import java.util.Random;
  */
 public class Galgje {
 
-    private Spel spel;
-    private List<String> woorden;
+	private final Spel spel;
+	private final List<String> woorden;
 
-    public Galgje() {
-        //TODO: In Java 7 moet je het type geen 2de keer meegeven bij instantatie = Diamond Operator
-        this.woorden = new ArrayList<>();
-        vulWoorden();
+	public Galgje() {
+		// TODO: In Java 7 moet je het type geen 2de keer meegeven bij instantatie = Diamond Operator
+		this.woorden = new ArrayList<String>();
+		vulWoorden();
 
-        this.spel = new Spel(woorden.get(new Random().nextInt(woorden.size())));
+		this.spel = new Spel(woorden.get(new Random().nextInt(woorden.size())));
 
-    }
+	}
 
-    public char[] getLetters() {
+	public char[] getLetters() {
 
-        return spel.getWoord().getLetters();
+		return spel.getWoord().getLetters();
 
-    }
+	}
 
-    public boolean gewonnen() {
-        return spel.gewonnen();
-    }
+	public boolean gewonnen() {
+		return spel.gewonnen();
+	}
 
-    public boolean verloren() {
-        return spel.verloren();
-    }
+	public boolean verloren() {
+		return spel.verloren();
+	}
 
-    public int lengteWoord() {
-        return spel.getWoord().lengteWoord();
-    }
+	public int lengteWoord() {
+		return spel.getWoord().lengteWoord();
+	}
 
-    public boolean antwoord(char letter) {
-        return spel.checkLetter(letter);
-    }
+	public boolean antwoord(final char letter) {
+		return spel.checkLetter(letter);
+	}
 
-    public String getWoord() {
-        return spel.getWoord().toString();
-    }
+	public String getWoord() {
+		return spel.getWoord().toString();
+	}
 
-    public int getFouten() {
-        return spel.getFouten();
-    }
+	public int getFouten() {
+		return spel.getFouten();
+	}
 
-    private void vulWoorden() {
-        woorden.add("bier");
-        woorden.add("java");
-        woorden.add("mac");
-        woorden.add("water");
+	private void vulWoorden() {
+		woorden.add("bier");
+		woorden.add("java");
+		woorden.add("mac");
+		woorden.add("water");
 
-    }
+	}
 
-    public void sluit() {
-        System.exit(0);
-    }
+	public void sluit() {
+		System.exit(0);
+	}
 }
